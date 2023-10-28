@@ -50,20 +50,30 @@ def insert_fake_data(engine, num_patients=100, num_medical_records=70): # Noqa: 
 
       
         # Fetch all patient IDs 
-        patient_ids = [row[0] for row in connection.execute("SELECT id FROM patients").fetchall()] # Noqa: E501
+            patient_ids = [row[0] for row in connection.execute("SELECT id FROM patients").fetchall()] # Noqa: E501
+            doctor_ids = [row[0] for row in connection.execute("SELECT id FROM doctors").fetchall()] # Noqa: E501
       
+
+        for _ in range(num_medical_records):
+            first_name = fake.first_name()
+            last_name = fake.last_name()
+            contact_number = fake.phone_number()
+
+            connection.execute(f"INSERT INTO doctors (first_name, last_name, contact_number) VALUES ('{first_name}', '{last_name}', '{contact_number}')") # Noqa: E501
 
 
         # Insert fake data into medical_records
         for _ in range(num_medical_records):
             patient_id = random.choice(patient_ids)
+            doctor_id = random.choice(doctor_ids)
             diagnosis = random.choice(diagnoses)
             treatment = random.choice(treatments)
             admission_date = fake.date_between(start_date="-5y", end_date="today")
             discharge_date = fake.date_between(start_date="-5y", end_date="today")
             connection.execute(f"""INSERT INTO medical_records (patient_id, diagnosis, treatment, admission_date, discharge_date) VALUES ({patient_id}, '{diagnosis}', '{treatment}', '{admission_date}', '{discharge_date}')""")
             
-           
+        connection.commit()
+        
 if __name__ == "__main__":
     insert_fake_data(db_engine)
     print("Fake data insertion complete!")
