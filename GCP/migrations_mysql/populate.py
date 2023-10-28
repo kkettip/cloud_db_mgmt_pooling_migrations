@@ -70,7 +70,7 @@ def insert_fake_data(engine, num_patients=100, num_medical_records=70): # Noqa: 
             treatment = random.choice(treatments)
             admission_date = fake.date_between(start_date="-5y", end_date="today")
             discharge_date = fake.date_between(start_date="-5y", end_date="today")
-            connection.execute(f"""INSERT INTO medical_records (patient_id, diagnosis, treatment, admission_date, discharge_date) VALUES ({patient_id}, '{diagnosis}', '{treatment}', '{admission_date}', '{discharge_date}')""")
+            connection.execute(f"""INSERT INTO medical_records (patient_id, doctor_id, diagnosis, treatment, admission_date, discharge_date) VALUES ({patient_id}, {doctor_id}, '{diagnosis}', '{treatment}', '{admission_date}', '{discharge_date}')""")
             
         connection.commit()
         
