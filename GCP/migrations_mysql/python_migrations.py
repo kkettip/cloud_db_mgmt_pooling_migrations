@@ -95,13 +95,13 @@ Base.metadata.create_all(engine)
 
 ### Part 2 - initial sqlalchemy-engine to connect to db:
 
-#DB_URL = "mysql+mysqlconnector://root:testtest@34.28.207.216/migrations-mysql-db"
-#engine = create_engine("mysql+mysqlconnector://hants-test:yourpassword@34.139.18.69/hants")
-#engine = create_engine("mysql+mysqlconnector://root:testtest@34.28.207.216/migrations-mysql-db")
+#DB_URL = "mysql+mysqlconnector://username:password@host/database_name"
+#engine = create_engine("mysql+mysqlconnector://username:password@host/database_name")
+#engine = create_engine("mysql+mysqlconnector://username:password@host/database_name")
 
 #engine = create_engine(DB_URL)
 
-#engine = create_engine("mysql+pymysql://hants:sbu-admin-2023@hants-migrations-test.mysql.database.azure.com/hants",
+#engine = create_engine("mysql+pymysql://username:password@host/database_name",
                          #connect_args={'ssl': {'ssl-mode': 'preferred'}},
                          #)
 #engine = create_engine(DB_URL, connect_args={'ssl': {'ssl-mode': 'preferred'}},)
