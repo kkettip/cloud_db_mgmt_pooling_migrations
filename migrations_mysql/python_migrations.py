@@ -59,6 +59,19 @@ class Patient(Base):
     records = relationship('MedicalRecord', back_populates='patient')
 
 
+
+class Doctor(Base):
+    __tablename__ = 'doctors'
+
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String(50), nullable=False)
+    last_name = Column(String(50), nullable=False)
+    contact_number = Column(String(100))
+
+    medical_records = relationship('MedicalRecord', back_populates='doctor')
+
+
+
 #Base = declarative_base()
 
 class MedicalRecord(Base):
@@ -66,14 +79,19 @@ class MedicalRecord(Base):
 
     id = Column(Integer, primary_key=True)
     patient_id = Column(Integer, ForeignKey('patients.id'), nullable=False)
+    doctor_id = Column(Integer, ForeignKey('doctors.id'), nullable=False)
     diagnosis = Column(String(100), nullable=False)
     treatment = Column(String(200))
     admission_date = Column(Date, nullable=False)
-    discharge_date = Column(Date)
+    discharge_date = Column(Date, nullable=False)
 
     patient = relationship('Patient', back_populates='records')
+    #doctor = relationship('Doctor', back_populates='records')
+
 
 Base.metadata.create_all(engine)
+
+
 
 ### Part 2 - initial sqlalchemy-engine to connect to db:
 
@@ -94,7 +112,6 @@ Base.metadata.create_all(engine)
 
 inspector = inspect(engine)
 inspector.get_table_names()
-
 
 ### Part 3 - create the tables using sqlalchemy models, with no raw SQL required:
 
