@@ -115,7 +115,7 @@ inspector.get_table_names()
 
 ### Part 3 - create the tables using sqlalchemy models, with no raw SQL required:
 
-Base.metadata.create_all(engine)
+#Base.metadata.create_all(engine)
 
 ### Running migrations 
 #""" these steps are then performed in the termainl, outside of your python code
