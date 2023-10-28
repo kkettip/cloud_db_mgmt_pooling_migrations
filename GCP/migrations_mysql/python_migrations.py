@@ -54,9 +54,10 @@ class Patient(Base):
     date_of_birth = Column(Date, nullable=False)
     gender = Column(String(10), nullable=False)
     contact_number = Column(String(100))
-    #is_alive = column(Boolean, nullable=False)
+   
 
     records = relationship('MedicalRecord', back_populates='patient')
+    
 
 
 
@@ -68,7 +69,7 @@ class Doctor(Base):
     last_name = Column(String(50), nullable=False)
     contact_number = Column(String(100))
 
-    medical_records = relationship('MedicalRecord', back_populates='doctor')
+    records = relationship('MedicalRecord', back_populates='doctor')
 
 
 
@@ -86,7 +87,7 @@ class MedicalRecord(Base):
     discharge_date = Column(Date, nullable=False)
 
     patient = relationship('Patient', back_populates='records')
-    #doctor = relationship('Doctor', back_populates='records')
+    doctor = relationship('Doctor', back_populates='records')
 
 
 Base.metadata.create_all(engine)
@@ -96,7 +97,6 @@ Base.metadata.create_all(engine)
 ### Part 2 - initial sqlalchemy-engine to connect to db:
 
 #DB_URL = "mysql+mysqlconnector://username:password@host/database_name"
-#engine = create_engine("mysql+mysqlconnector://username:password@host/database_name")
 #engine = create_engine("mysql+mysqlconnector://username:password@host/database_name")
 
 #engine = create_engine(DB_URL)

@@ -35,7 +35,7 @@ genders = ['male', 'female']
 
 
 
-def insert_fake_data(engine, num_patients=100, num_medical_records=70): # Noqa: E501
+def insert_fake_data(engine, num_patients=100, num_doctors=100, num_medical_records=70): # Noqa: E501
     # Start a connection
     with engine.connect() as connection:
         # Insert fake data into patients
@@ -48,20 +48,27 @@ def insert_fake_data(engine, num_patients=100, num_medical_records=70): # Noqa: 
 
             connection.execute(f"INSERT INTO patients (first_name, last_name, date_of_birth, gender, contact_number) VALUES ('{first_name}', '{last_name}', '{date_of_birth}', '{gender}', '{contact_number}')") # Noqa: E501
 
-      
-        # Fetch all patient IDs 
-            patient_ids = [row[0] for row in connection.execute("SELECT id FROM patients").fetchall()] # Noqa: E501
-            doctor_ids = [row[0] for row in connection.execute("SELECT id FROM doctors").fetchall()] # Noqa: E501
-      
 
-        for _ in range(num_medical_records):
+        
+
+    with engine.connect() as connection:
+
+        for _ in range(num_doctors):
             first_name = fake.first_name()
             last_name = fake.last_name()
             contact_number = fake.phone_number()
 
             connection.execute(f"INSERT INTO doctors (first_name, last_name, contact_number) VALUES ('{first_name}', '{last_name}', '{contact_number}')") # Noqa: E501
 
+        
+        
+      
+        # Fetch all patient IDs 
+        patient_ids = [row[0] for row in connection.execute("SELECT id FROM patients").fetchall()] # Noqa: E501
+        doctor_ids = [row[0] for row in connection.execute("SELECT id FROM doctors").fetchall()] # Noqa: E501
+      
 
+    with engine.connect() as connection:
         # Insert fake data into medical_records
         for _ in range(num_medical_records):
             patient_id = random.choice(patient_ids)
@@ -72,7 +79,11 @@ def insert_fake_data(engine, num_patients=100, num_medical_records=70): # Noqa: 
             discharge_date = fake.date_between(start_date="-5y", end_date="today")
             connection.execute(f"""INSERT INTO medical_records (patient_id, doctor_id, diagnosis, treatment, admission_date, discharge_date) VALUES ({patient_id}, {doctor_id}, '{diagnosis}', '{treatment}', '{admission_date}', '{discharge_date}')""")
             
-        connection.commit()
+        
+        
+    
+        
+       
         
 if __name__ == "__main__":
     insert_fake_data(db_engine)
