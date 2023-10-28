@@ -11,7 +11,35 @@ from sqlalchemy import create_engine, inspect, Column, Integer, String, Date, Fo
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
-DB_URL = "mysql+mysqlconnector://root:testtest@34.28.207.216/migrations-mysql-db"
+import os
+from dotenv import load_dotenv
+from sqlalchemy import create_engine
+from faker import Faker
+import random
+
+# Load environment variables
+load_dotenv()
+
+# Database connection settings from environment variables
+DB_HOST = os.getenv("DB_HOST")
+DB_DATABASE = os.getenv("DB_DATABASE")
+DB_USERNAME = os.getenv("DB_USERNAME")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_PORT = int(os.getenv("DB_PORT", 3306))
+DB_CHARSET = os.getenv("DB_CHARSET", "utf8mb4")
+
+DB_URL = os.getenv("DB_URL")
+
+# Connection string
+conn_string = (
+    f"mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}"
+    f"?charset={DB_CHARSET}"
+)
+
+# Create a database engine
+db_engine = create_engine(conn_string, echo=False)
+
+
 engine = create_engine(DB_URL)
 
 

@@ -23,6 +23,8 @@ conn_string = (
 
 # Create a database engine
 db_engine = create_engine(conn_string, echo=False)
+
+
 fake = Faker()
 
 diagnoses = [ 'cancer', 'diabetes', 'lung_disease', 'heart_disease']
