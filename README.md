@@ -2,7 +2,7 @@
 
 
 
-##GCP Setup and Configuration 
+## GCP Setup and Configuration 
 
 Log into GCP account
 
