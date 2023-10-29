@@ -38,6 +38,7 @@ Only the patients table was created when the code to create both the patients ta
 
 
 Received:
+
 OperationalError: (pymysql.err.OperationalError) (1054, "Unknown column 'cancer' in 'field list'"). This issue was resolved by adding quotes to {diagnosis} to get the string form of the various diagnoses.
 
 
