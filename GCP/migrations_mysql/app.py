@@ -19,13 +19,6 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_PORT = int(os.getenv("DB_PORT", 3306))
 DB_CHARSET = os.getenv("DB_CHARSET", "utf8mb4")
 
-# DB_URL = os.getenv("DB_URL")
-
-# print("1m")
-# print(DB_URL)
-
-# engine = create_engine(DB_URL)
-
 
 
 # Connection string
@@ -50,10 +43,6 @@ def index():
     df_patients = read_sql(query_patients, db_engine)
     patients = df_patients.to_dict(orient='records')
    
-
-    # query_conditions = "SELECT * FROM conditions limit 10"
-    # df_conditions = read_sql(query_conditions, db_engine)
-    # conditions = df_conditions.to_dict(orient='records')
 
     query_medical_records = "SELECT * FROM medical_records limit 10"
     df_medical_records= read_sql(query_medical_records, db_engine)
